@@ -1,6 +1,7 @@
 import Todo from '../components/Todo'
 import { useSelector } from 'react-redux'
 import Stack from '@mui/material/Stack'
+import { Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
 
@@ -11,14 +12,23 @@ function RenderTodos(props){
     
     const [active, setActive] = useState(
         todos.filter((todo) => {
-            return todo.status === props.state
+            if(props.state !== "all"){
+                return todo.status === props.state
+            }else{
+                console.log("anko")
+                return true
+            }
         })
     )
     
     function getActive(){
         setActive(
             todos.filter((todo) => {
-                return todo.status === props.state
+                if(props.state !== "all"){
+                    return todo.status === props.state
+                }else{
+                    return true
+                }
             })
         )
     }
@@ -39,13 +49,19 @@ function RenderTodos(props){
         }else{
             getActive()
         }
+        
+        // eslint-disable-next-line
     },[searchValue])
 
     return(
         <Container maxWidth="md">
+            <Typography variant="h2" component="h1" align="center" gutterBottom>
+                { props.heading }
+            </Typography>
             <Stack spacing={2} justifyContent="center" >
                 {
                     active.map((todo) => {
+                        console.log(todo)
                         return <Todo key={todo.id} data={todo}/>
                     })
                 }

@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { update } from '../redux/search'
 
 function Search(){
 
-    const { searchValue } = useSelector((state) => state.search)
     const dispatch = useDispatch()
 
     function getSearch(e){
@@ -23,7 +22,6 @@ function Search(){
                 <input type="submit" value="Search" />
             </form>
             <button onClick={cancelSearch}>Cancel</button>
-            <h1>{ searchValue }</h1>
         </div>
     )
 }

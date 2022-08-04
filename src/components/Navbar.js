@@ -6,7 +6,7 @@ function Navbar(){
     return(
         <Stack direction="row" spacing={2} justifyContent="center">
             <NavLink to="/">
-                <Button size="large">All</Button>
+                <Button size="large">Home</Button>
             </NavLink>
             <NavLink to="/active">
                 <Button size="large">Active</Button>
