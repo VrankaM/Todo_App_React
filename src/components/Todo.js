@@ -61,8 +61,10 @@ function Todo( props ){
     }
 
     return(
-        <Box marginY={2}>
-            <Paper elevation={3} className={props.data.status} marginY={1}>
+        <Box sx={{
+            my: 3
+        }}>
+            <Paper elevation={3} className={props.data.status} >
                 <Box paddingX={2} paddingY={1}>
                     <Typography variant="h4" component="h3" gutterBottom>
                         {props.data.title}

@@ -8,6 +8,7 @@ import Active from './pages/Active'
 import Completed from './pages/Completed'
 import SharedLayout from './components/SharedLayout'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Container } from '@mui/system'
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<SharedLayout />}>
-          <Route path='all' element={<Home />} />
+          <Route index element={<Home />} />
           <Route path='active' element={<Active />} />
           <Route path='completed' element={<Completed />} />
         </Route>

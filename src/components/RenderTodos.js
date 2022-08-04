@@ -7,29 +7,39 @@ import { useEffect, useState } from 'react'
 function RenderTodos(props){
 
     const { todos } = useSelector((state) => state.todos)
+    const { searchValue } = useSelector((state) => state.search)
+    
     const [active, setActive] = useState(
         todos.filter((todo) => {
             return todo.status === props.state
         })
     )
-
-    // function updateActive(){
-    //     setActive(
-    //         todos.filter((todo) => {
-    //             return todo.status === props.state
-    //         })
-    //     )
-        
-    // }
-
-    useEffect(() => {
+    
+    function getActive(){
         setActive(
             todos.filter((todo) => {
                 return todo.status === props.state
             })
         )
+    }
+
+    useEffect(() => {
+        getActive()
+
         // eslint-disable-next-line
     },[todos])
+
+    useEffect(() => {
+        if(searchValue !== ""){
+            setActive(
+                active.filter((todo) => {
+                    return todo.title.includes(searchValue) || todo.text.includes(searchValue)
+                })
+            )
+        }else{
+            getActive()
+        }
+    },[searchValue])
 
     return(
         <Container maxWidth="md">
