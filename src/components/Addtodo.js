@@ -49,6 +49,7 @@ function Addtodo(){
                         label="Todo title"
                         size="normal"
                         InputLabelProps={{ shrink: true }}
+                        inputProps={{ maxLength: 30 }}
                         placeholder="What to do"
                         required
                         fullWidth
@@ -61,6 +62,7 @@ function Addtodo(){
                         label="Todo text"
                         size="normal"
                         InputLabelProps={{ shrink: true }}
+                        inputProps={{ maxLength: 150 }}
                         placeholder="Better description"
                         fullWidth
                     />

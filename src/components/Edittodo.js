@@ -48,6 +48,7 @@ function Edittodo( props ){
                             label="Todo title"
                             size="small"
                             value={title}
+                            inputProps={{ maxLength: 30 }}
                             onChange={
                                 (event) => {
                                     setTitle(event.target.value)
@@ -64,6 +65,7 @@ function Edittodo( props ){
                             label="Todo text"
                             size="small"
                             value={text}
+                            inputProps={{ maxLength: 150 }}
                             onChange={
                                 (event) => {
                                     setText(event.target.value)
