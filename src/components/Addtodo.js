@@ -1,9 +1,16 @@
 import axios from 'axios'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { update } from '../redux/todos'
+import { TextField, Button } from '@mui/material'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import Stack from '@mui/material/Stack'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 function Addtodo(){
 
+    const [deadline, setDeadline] = useState(new Date())
     const dispatch = useDispatch()
 
     async function handleSubmit(e){
@@ -11,12 +18,15 @@ function Addtodo(){
         let todo = {
             title: e.target.title.value,
             text: e.target.text.value,
-            // deadline: JSON.stringify(e.target.deadline.value),
-            deadline: e.target.deadline.value,
+            deadline: deadline,
             status: "default"
         }
         await axios.post('https://62e7f7e793938a545bdd7fff.mockapi.io/todos', todo)
         updateTodos()
+    }
+
+    function handleChange(e){
+        setDeadline(e)
     }
 
     function updateTodos(){
@@ -27,15 +37,58 @@ function Addtodo(){
 
     return(
         <div className="addTodo">
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <label htmlFor="title">Todo title:</label>
-                <input type="text" name="title" id="titleInput" />
-                <label htmlFor="text">Todo text:</label>
-                <input type="text" name="text" id="textInput" />
-                <label htmlFor="deadline">Deadline:</label>
-                <input type="datetime-local" name="deadline" id="deadlineInput" />
-                <input type="submit" value="Add" />
+                <Stack spacing={2} justifyContent="center" >
+                    <TextField 
+                        name="title"
+                        type="text"
+                        variant="outlined"
+                        color="primary"
+                        label="Todo title"
+                        size="normal"
+                        InputLabelProps={{ shrink: true }}
+                        placeholder="What to do"
+                        required
+                        fullWidth
+                    />
+                    <TextField 
+                        name="text"
+                        type="text"
+                        variant="outlined"
+                        color="primary"
+                        label="Todo text"
+                        size="normal"
+                        InputLabelProps={{ shrink: true }}
+                        placeholder="Better description"
+                        fullWidth
+                    />
+                    <DateTimePicker 
+                        name="deadline"
+                        type="datetime"
+                        value={deadline}
+                        renderInput={(params) => <TextField {...params} />}
+                        variant="standard"
+                        color="primary"
+                        label="Deadline"
+                        size="normal"
+                        InputLabelProps={{ shrink: true }}
+                        inputProps={{ readOnly: true }}
+                        onChange={handleChange}
+                        disablePast
+                        fullWidth
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        size="large"
+                        >
+                        Add todo
+                    </Button>
+                </Stack>
             </form>
+            </LocalizationProvider>
         </div>
     )
 }

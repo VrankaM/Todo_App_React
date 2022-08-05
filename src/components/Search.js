@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { update } from '../redux/search'
+import { Button, Stack, TextField } from '@mui/material'
 
 function Search(){
 
@@ -15,14 +16,50 @@ function Search(){
     }
 
     return(
-        <div className="search">
-            <form action="" onSubmit={(e) => getSearch(e)}>
-                <label htmlFor="search">Search in list:</label>
-                <input type="text" name="search" id="search"/>
-                <input type="submit" value="Search" />
+        <Stack
+                spacing={2} 
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+                my={4}
+            >
+            <form onSubmit={(e) => getSearch(e)}>
+                <Stack
+                    spacing={1} 
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                >
+                    <TextField 
+                        name="search"
+                        type="text"
+                        variant="outlined"
+                        color="primary"
+                        label="Search"
+                        size="small"
+                        // InputLabelProps={{ shrink: true }}
+                        placeholder="Search in todos"
+                        // fullWidth
+                        />
+                    <Button
+                        variant="outlined"
+                        type="primary" 
+                        size="medium"
+                        >
+                        Search
+                    </Button >
+                </Stack>
             </form>
-            <button onClick={cancelSearch}>Cancel</button>
-        </div>
+            <Button
+                onClick={cancelSearch}
+                variant="text"
+                type="primary"
+                size="medium"
+                color="error"
+                >
+                Cancel
+            </Button>
+        </Stack>
     )
 }
 

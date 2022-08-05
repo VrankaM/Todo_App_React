@@ -4,15 +4,30 @@ import Stack from "@mui/material/Stack";
 
 function Navbar(){
     return(
-        <Stack direction="row" spacing={2} justifyContent="center">
+        <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
             <NavLink to="/">
-                <Button size="large">Home</Button>
+                <Button 
+                    size="large"
+                    variant="text"
+                >
+                    Home
+                </Button>
             </NavLink>
             <NavLink to="/active">
-                <Button size="large">Active</Button>
+                <Button 
+                    size="large"
+                    variant="text"
+                >
+                    Active
+                </Button>
             </NavLink>
             <NavLink to="/completed">
-                <Button size="large">Completed</Button>
+                <Button 
+                    size="large"
+                    variant="text"
+                >
+                    Completed
+                </Button>
             </NavLink>
         </Stack>
     )

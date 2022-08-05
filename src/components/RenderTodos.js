@@ -15,7 +15,6 @@ function RenderTodos(props){
             if(props.state !== "all"){
                 return todo.status === props.state
             }else{
-                console.log("anko")
                 return true
             }
         })
@@ -61,7 +60,6 @@ function RenderTodos(props){
             <Stack spacing={2} justifyContent="center" >
                 {
                     active.map((todo) => {
-                        console.log(todo)
                         return <Todo key={todo.id} data={todo}/>
                     })
                 }

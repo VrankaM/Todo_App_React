@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { update } from '../redux/todos'
 import Edittodo from './Edittodo'
+import Moment from 'moment'
 
 
 function Todo( props ){
@@ -60,6 +61,10 @@ function Todo( props ){
         }
     }
 
+    function displayDateTime(){
+        return Moment(props.data.deadline).format('DD-MM-YYYY hh:mm a')
+    }
+
     return(
         <Box sx={{
             my: 3
@@ -73,7 +78,8 @@ function Todo( props ){
                         {props.data.text}
                     </Typography>
                     <Typography variant="body2" component="p" gutterBottom>
-                        {props.data.deadline}
+                        {/* {props.data.deadline} */}
+                        {displayDateTime()}
                     </Typography>
                     <Stack direction="row" spacing={1} justifyContent="flex-end">
                         <Button size="small" variant="contained" color="success" onClick={() => {

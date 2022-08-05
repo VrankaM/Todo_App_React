@@ -1,4 +1,5 @@
 import Header from "./Header"
+import Footer from "./Footer"
 import { Outlet } from "react-router-dom"
 import { Container } from "@mui/system";
  
@@ -12,7 +13,7 @@ function SharedLayout(){
                 <Header />
             </Container>
             <Outlet />
-            <h1>footer</h1>
+            <Footer />
         </>
     )
 }
