@@ -60,7 +60,7 @@ function RenderTodos(props){
             <Typography variant="h2" component="h1" align="center" gutterBottom>
                 { props.heading }
             </Typography>
-            <Stack spacing={2} justifyContent="center" >
+            <Stack justifyContent="center" >
                 {
                     active.map((todo) => {
                         return <Todo key={todo.id} data={todo}/>
