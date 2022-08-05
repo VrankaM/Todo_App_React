@@ -1,3 +1,43 @@
+# React TodoList App
+
+used technologies:
+React, Router, Axios, Redux Toolkit, Material UI  
+function components with hooks
+
+## Contents
+
+#### To do list with heading and todos  
+  Each todo contains heading, optional text and deadline  
+  
+  Todos are added via form on Home page 
+  
+  Home page also displays all todos 
+  
+  Each todo can be editted, deleted, or marked/unmarked as finished
+  
+#### Active and Completed pages
+  Component RenderTodos fiflters todos based on their status: completed / default
+  
+#### Todos persistency
+  After every action, axios takes care of updating array of objects at mock api, which carries all todos data
+  
+#### Redux toolkit
+  All todos fetched from mock api are stored in a redux store, in an "todos" array. Aray is after actions updated localy first for instant response when deleting, editing or toggling todos
+  
+  Exception is Adding todos. New todo is first uploaded to mock api, then fetched and stored in redux store. This is because mock api is in charge of id's, which are assigned to every todo. 
+  
+#### Searching
+  All pages have shared Search input. Input, unless empty, is stored in redux store, then todos on every page are filtered, and onli ones that contain search input are rendered.
+  
+  After pressing Cancel button near the Search input, search string is assign value of "", thus todos are not filtered
+  
+#### Material UI
+  This library takes care of all the design. I prefer minimalistic clean look. For positioning, I have used Containers, Stacks and Boxes.
+  
+#### Form validaiton
+  Form validation is done via Material UI, since it allows us to require an input not to be empty, or limit max number of characters and doesn't allow us to pick date and time from past. Those are the only validations I needed. No other library was necessary
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
