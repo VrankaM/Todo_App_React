@@ -3,6 +3,8 @@ import { update } from '../redux/search'
 import { Button, Stack, TextField } from '@mui/material'
 
 function Search(){
+    // this component is for updating search string stored in redux store
+    // all pages render their todos based on stored search string
 
     const dispatch = useDispatch()
 
@@ -11,6 +13,7 @@ function Search(){
         dispatch(update(e.target.search.value))
     }
 
+    // when the value of string equals "", no todo render filter will be applied 
     function cancelSearch(){
         dispatch(update(""))
     }
@@ -37,9 +40,7 @@ function Search(){
                         color="primary"
                         label="Search"
                         size="small"
-                        // InputLabelProps={{ shrink: true }}
                         placeholder="Search in todos"
-                        // fullWidth
                         />
                     <Button
                         variant="outlined"

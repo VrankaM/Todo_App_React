@@ -13,6 +13,7 @@ function Addtodo(){
     const [deadline, setDeadline] = useState(new Date())
     const dispatch = useDispatch()
 
+    // gathering data from inputs and state, then uploading them to mock api
     async function handleSubmit(e){
         e.preventDefault()
         let todo = {

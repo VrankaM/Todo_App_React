@@ -78,7 +78,6 @@ function Todo( props ){
                         {props.data.text}
                     </Typography>
                     <Typography variant="body2" component="p" gutterBottom>
-                        {/* {props.data.deadline} */}
                         {displayDateTime()}
                     </Typography>
                     <Stack direction="row" spacing={1} justifyContent="flex-end">

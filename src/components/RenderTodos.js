@@ -9,7 +9,10 @@ function RenderTodos(props){
 
     const { todos } = useSelector((state) => state.todos)
     const { searchValue } = useSelector((state) => state.search)
-    
+
+    // this rendering system is used for all subpages
+    // active holds all todos that should render, only todos with status === props.state will be diplaied
+    // all is exception, then all todos will render
     const [active, setActive] = useState(
         todos.filter((todo) => {
             if(props.state !== "all"){
