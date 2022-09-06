@@ -14,8 +14,11 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((response) => {
-        dispatch(update(response.data))
+    axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((res) => {
+        dispatch(update(res.data))
+    }).catch((err) => {
+      console.log(err)
+      alert("An error occured while fetching todo data")
     })
     // eslint-disable-next-line
   }, [])

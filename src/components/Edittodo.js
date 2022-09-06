@@ -26,12 +26,15 @@ function Edittodo( props ){
             deadline: deadline,
             status: props.data.status
         }
-
-        let todoCopy = [...todos]
-        todoCopy[todoCopy.indexOf(props.data)] = {...todo}
-        dispatch(update(todoCopy))
-
-        axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + props.data.id, todo)
+        axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + props.data.id, todo).then(() => {
+            let todoCopy = [...todos]
+            todoCopy[todoCopy.indexOf(props.data)] = {...todo}
+            dispatch(update(todoCopy))
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("An error occured while editing todo")
+        })
         props.closeEdit()
     }
 

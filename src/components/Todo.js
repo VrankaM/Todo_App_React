@@ -21,34 +21,35 @@ function Todo( props ){
     const dispatch = useDispatch()
 
     function deleteTodo(id){
-        //deleting todo locally for instant render
-        let todoCopy = [...todos]
-        
-        dispatch(update(
-            todoCopy.filter((todo) => {
-                return id !== todo.id
-            })
-        ))
-        axios.delete('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + id)
+        axios.delete('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + id).then(() =>{
+            let todoCopy = [...todos]
+            dispatch(update(
+                todoCopy.filter((todo) => {
+                    return id !== todo.id
+                })
+            ))
+        }).catch((err) =>{
+            console.log(err)
+            alert("An error occured while deleting todo")
+        })
     }
 
     function toggleTodo(initial){
-        // change status of todo locally for instant render
         let todoCopy = [...todos]
         let index = todoCopy.indexOf(initial)
         let objectCopy = { ...todoCopy[index] }
-
         if(objectCopy.status === "default"){
             objectCopy.status = "completed"
         }else{
             objectCopy.status = "default"
         }
-        todoCopy[index] = { ...objectCopy }
-        dispatch(update(todoCopy))
-
-        // uploading changes
-        // note: toggling purely via api changes renders slow 
-        axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + initial.id, objectCopy)
+        axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + initial.id, objectCopy).then(() =>{
+            todoCopy[index] = { ...objectCopy }
+            dispatch(update(todoCopy))
+        }).catch((err) => {
+            console.log(err)
+            alert("An error occured while toggling state of todo")
+        })
     }
 
     function editTodo(){

@@ -14,7 +14,7 @@ function Addtodo(){
     const dispatch = useDispatch()
 
     // gathering data from inputs and state, then uploading them to mock api
-    async function handleSubmit(e){
+    function handleSubmit(e){
         e.preventDefault()
         let todo = {
             title: e.target.title.value,
@@ -22,8 +22,12 @@ function Addtodo(){
             deadline: deadline,
             status: "default"
         }
-        await axios.post('https://62e7f7e793938a545bdd7fff.mockapi.io/todos', todo)
-        updateTodos()
+        axios.post('https://62e7f7e793938a545bdd7fff.mockapi.io/todos', todo).then(() => {
+            updateTodos()
+        }).catch((err) => {
+            console.log(err)
+            alert("An error occured while adding new todo")
+        })
     }
 
     function handleChange(e){
@@ -31,9 +35,14 @@ function Addtodo(){
     }
 
     function updateTodos(){
-        axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((response) => {
-            dispatch(update(response.data))
-        })
+        try{
+            axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((response) => {
+                dispatch(update(response.data))
+            })
+        } catch(error){
+            console.log(error)
+            alert("An error occured while fetching todo data")
+        }
     }
 
     return(

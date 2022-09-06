@@ -1,0 +1,7 @@
+Error handling
+    added catch block after axios request:
+        - initially getting data
+        - adding new todo
+        - editing todo
+        - deleting todo
+        - toggling state of todo
