@@ -1,11 +1,13 @@
 import { useDispatch } from 'react-redux'
 import { update } from '../redux/search'
 import { Button, Stack, TextField } from '@mui/material'
+import { useState } from 'react'
 
 function Search(){
     // this component is for updating search string stored in redux store
     // all pages render their todos based on stored search string
 
+    const [timer, setTimer] = useState()
     const dispatch = useDispatch()
 
     function getSearch(e){
@@ -16,6 +18,16 @@ function Search(){
     // when the value of string equals "", no todo render filter will be applied 
     function cancelSearch(){
         dispatch(update(""))
+    }
+
+    function handleChange(e){
+        clearTimeout(timer)
+        
+        let newTimer = setTimeout(() =>{
+            dispatch(update(e.target.value))
+        }, 1000)
+
+        setTimer(newTimer)
     }
 
     return(
@@ -41,6 +53,7 @@ function Search(){
                         label="Search"
                         size="small"
                         placeholder="Search in todos"
+                        onChange={(e) => {handleChange(e)}}
                         />
                     <Button
                         variant="outlined"

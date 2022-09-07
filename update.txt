@@ -5,3 +5,12 @@ Error handling
         - editing todo
         - deleting todo
         - toggling state of todo
+
+Alerts for CRUD operations
+    added alerts with custom message:
+        - adding new todo
+        - edditing todo
+        - deleting todo
+        - toggling the state of todo
+
+    there is no alert when initialy fetching data, or fetching them after some change, since it seems redundant

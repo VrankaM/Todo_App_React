@@ -16,8 +16,9 @@ function Edittodo( props ){
     const [title, setTitle] = useState(props.data.title)
     const [text, setText] = useState(props.data.text)
     const [deadline, setDeadline] = useState(props.data.deadline)
+    const [error, setError] = useState(false)
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
         let todo = {
             id: props.data.id,
@@ -26,16 +27,20 @@ function Edittodo( props ){
             deadline: deadline,
             status: props.data.status
         }
-        axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + props.data.id, todo).then(() => {
+        await axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + props.data.id, todo).then(() => {
             let todoCopy = [...todos]
             todoCopy[todoCopy.indexOf(props.data)] = {...todo}
             dispatch(update(todoCopy))
         })
         .catch((err) => {
             console.log(err)
+            setError(true)
             alert("An error occured while editing todo")
         })
         props.closeEdit()
+        if(!error){
+            alert(`"${todo.title}" was edited succesfully`)
+        }
     }
 
     return(
@@ -51,7 +56,7 @@ function Edittodo( props ){
                             label="Todo title"
                             size="small"
                             value={title}
-                            inputProps={{ maxLength: 30 }}
+                            inputProps={{ maxLength: 50 }}
                             onChange={
                                 (event) => {
                                     setTitle(event.target.value)

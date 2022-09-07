@@ -24,6 +24,7 @@ function Addtodo(){
         }
         axios.post('https://62e7f7e793938a545bdd7fff.mockapi.io/todos', todo).then(() => {
             updateTodos()
+            alert(`"${todo.title}" was succesfully added to the list`)
         }).catch((err) => {
             console.log(err)
             alert("An error occured while adding new todo")
@@ -35,14 +36,12 @@ function Addtodo(){
     }
 
     function updateTodos(){
-        try{
-            axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((response) => {
-                dispatch(update(response.data))
-            })
-        } catch(error){
-            console.log(error)
+        axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((response) => {
+            dispatch(update(response.data))
+        }).catch((err) =>{
+            console.log(err)
             alert("An error occured while fetching todo data")
-        }
+        })
     }
 
     return(
@@ -58,7 +57,7 @@ function Addtodo(){
                         label="Todo title"
                         size="normal"
                         InputLabelProps={{ shrink: true }}
-                        inputProps={{ maxLength: 30 }}
+                        inputProps={{ maxLength: 50 }}
                         placeholder="What to do"
                         required
                         fullWidth

@@ -16,13 +16,16 @@ import Moment from 'moment'
 function Todo( props ){
     
     const [edit, setEdit] = useState(false)
+    const [error, setError] = useState(false)
 
     const { todos } = useSelector((state) => state.todos)
     const dispatch = useDispatch()
 
-    function deleteTodo(id){
-        axios.delete('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + id).then(() =>{
-            let todoCopy = [...todos]
+    async function deleteTodo(id){
+        setError(false)
+        let todoCopy = [...todos]
+        let todo = todoCopy.find(todo => todo.id === id)
+        await axios.delete('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + id).then(() =>{
             dispatch(update(
                 todoCopy.filter((todo) => {
                     return id !== todo.id
@@ -30,26 +33,38 @@ function Todo( props ){
             ))
         }).catch((err) =>{
             console.log(err)
+            setError(true)
             alert("An error occured while deleting todo")
         })
+        if(!error){
+            alert(`"${todo.title}" was deleted succesfully`)
+        }
     }
 
-    function toggleTodo(initial){
+    async function toggleTodo(initial){
+        setError(false)
         let todoCopy = [...todos]
         let index = todoCopy.indexOf(initial)
         let objectCopy = { ...todoCopy[index] }
+        let objectStatus = ""
         if(objectCopy.status === "default"){
             objectCopy.status = "completed"
+            objectStatus = "completed"
         }else{
             objectCopy.status = "default"
+            objectStatus = "active"
         }
-        axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + initial.id, objectCopy).then(() =>{
+        await axios.put('https://62e7f7e793938a545bdd7fff.mockapi.io/todos/' + initial.id, objectCopy).then(() =>{
             todoCopy[index] = { ...objectCopy }
             dispatch(update(todoCopy))
         }).catch((err) => {
             console.log(err)
+            setError(true)
             alert("An error occured while toggling state of todo")
         })
+        if(!error){
+            alert(`"${objectCopy.title}" was succesfully marked as "${objectStatus}"`)
+        }
     }
 
     function editTodo(){
