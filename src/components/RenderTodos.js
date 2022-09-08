@@ -4,11 +4,15 @@ import Stack from '@mui/material/Stack'
 import { Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
+import { reset } from '../redux/limit'
+import { useDispatch } from "react-redux"
 
 function RenderTodos(props){
 
     const { todos } = useSelector((state) => state.todos)
     const { searchValue } = useSelector((state) => state.search)
+
+    const dispatch = useDispatch()
 
     // this rendering system is used for all subpages
     // active holds all todos that should render, only todos with status === props.state will be diplaied
@@ -36,9 +40,14 @@ function RenderTodos(props){
     }
 
     useEffect(() => {
+        dispatch(reset())
+    // eslint-disable-next-line
+    },[])
+
+    useEffect(() => {
         getActive()
 
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     },[todos])
 
     useEffect(() => {
@@ -60,7 +69,7 @@ function RenderTodos(props){
             <Typography variant="h2" component="h1" align="center" gutterBottom>
                 { props.heading }
             </Typography>
-            <Stack justifyContent="center" >
+            <Stack justifyContent="center">
                 {
                     active.map((todo) => {
                         return <Todo key={todo.id} data={todo}/>

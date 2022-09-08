@@ -14,3 +14,18 @@ Alerts for CRUD operations
         - toggling the state of todo
 
     there is no alert when initialy fetching data, or fetching them after some change, since it seems redundant
+
+Search on keyup
+    added 1000ms timer that resets after each new keypress 
+
+Fetching 10 todos initially, then additional 5 when scrolling to the end of list
+    limit on fetching data is applied through url parameters
+    limit number is initially 10, this value is stored in redux store
+    function to increment limit has three conditions
+        - footer element must be visible, that means that user has scrolled to the bottom of the list
+        - number of downloaded todos must be less than the limit
+        - variable in redux store named fetchFinished must be true
+            this variable is true only if all todos have been rendered
+            (after first load of the page, footer is visible for a short moment, this variable prevents incrementing limit in that scenario) 
+    function increment will increment limit in redux store by 5
+    after switching to page "active" or "completed", useEffect fires a reset function, that resets limit to 10 and fetchFinished to false
