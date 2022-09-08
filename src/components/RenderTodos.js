@@ -6,6 +6,7 @@ import { Container } from '@mui/system'
 import { useEffect, useState } from 'react'
 import { reset } from '../redux/limit'
 import { useDispatch } from "react-redux"
+import SortButton from './SortButton'
 
 function RenderTodos(props){
 
@@ -46,7 +47,6 @@ function RenderTodos(props){
 
     useEffect(() => {
         getActive()
-
     // eslint-disable-next-line
     },[todos])
 
@@ -70,6 +70,7 @@ function RenderTodos(props){
                 { props.heading }
             </Typography>
             <Stack justifyContent="center">
+                <SortButton />
                 {
                     active.map((todo) => {
                         return <Todo key={todo.id} data={todo}/>

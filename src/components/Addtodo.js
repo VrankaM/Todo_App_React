@@ -1,17 +1,18 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { update } from '../redux/todos'
+import { useDispatch, useSelector } from 'react-redux'
 import { TextField, Button } from '@mui/material'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import Stack from '@mui/material/Stack'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { updateTodos } from '../utils/Utils'
 
 function Addtodo(){
 
     const [deadline, setDeadline] = useState(new Date())
     const dispatch = useDispatch()
+    const { limit } = useSelector((state) => state.limit) 
 
     // gathering data from inputs and state, then uploading them to mock api
     function handleSubmit(e){
@@ -23,7 +24,7 @@ function Addtodo(){
             status: "default"
         }
         axios.post('https://62e7f7e793938a545bdd7fff.mockapi.io/todos', todo).then(() => {
-            updateTodos()
+            updateTodos(limit, dispatch)
             alert(`"${todo.title}" was succesfully added to the list`)
         }).catch((err) => {
             console.log(err)
@@ -33,15 +34,6 @@ function Addtodo(){
 
     function handleChange(e){
         setDeadline(e)
-    }
-
-    function updateTodos(){
-        axios.get('https://62e7f7e793938a545bdd7fff.mockapi.io/todos').then((response) => {
-            dispatch(update(response.data))
-        }).catch((err) =>{
-            console.log(err)
-            alert("An error occured while fetching todo data")
-        })
     }
 
     return(

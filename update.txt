@@ -29,3 +29,7 @@ Fetching 10 todos initially, then additional 5 when scrolling to the end of list
             (after first load of the page, footer is visible for a short moment, this variable prevents incrementing limit in that scenario) 
     function increment will increment limit in redux store by 5
     after switching to page "active" or "completed", useEffect fires a reset function, that resets limit to 10 and fetchFinished to false
+
+Sort todos from newest to oldest
+    adding url parameters from mockapi docs for unknown reason didnt work
+    // sortBy=createdAt&order=desc / sortBy=createdAt&order=asc

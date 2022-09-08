@@ -3,16 +3,20 @@ import { createSlice } from '@reduxjs/toolkit'
 export const todosSlice = createSlice({
   name: 'todos',
   initialState: {
-    todos: []
+    todos: [],
+    refresh: false
   },
   reducers: {
     update: (state, updated) => {
       state.todos = updated.payload
     },
+    toggleRefresh: (state) => {
+      state.refresh = !state.refresh
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { update } = todosSlice.actions
+export const { update, toggleRefresh } = todosSlice.actions
 
 export default todosSlice.reducer
