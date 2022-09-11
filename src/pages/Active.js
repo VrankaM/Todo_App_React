@@ -1,6 +1,7 @@
-import RenderTodos from "../components/RenderTodos";
+import RenderTodos from "../components/RenderTodos"
 
 function Active(){
+
     return(
         <RenderTodos state="default" heading="Active todos" />
     )

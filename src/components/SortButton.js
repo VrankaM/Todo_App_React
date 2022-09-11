@@ -1,12 +1,8 @@
-import { useDispatch, useSelector } from "react-redux"
-import axios from "axios"
-import { updateTodos } from "../utils/Utils"
+import { useSelector } from "react-redux"
+import { Button } from "antd"
 
 function SortButton(){
     const { todos } = useSelector((state) => state.todos)
-    const { limit } = useSelector((state) => state.limit)
-
-    const dispatch = useDispatch()
 
     function sort(){
         let todosCopy = [...todos]
@@ -17,9 +13,9 @@ function SortButton(){
     }
     
     return(
-        <button onClick={sort}>
-            Sort by newest
-        </button>
+        <Button onClick={sort}> 
+            Sort by newest 
+        </Button>
     )
 }
 
