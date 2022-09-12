@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 function Navbar(){
     return(
         <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
-            <NavLink to="/">
+            <NavLink to="/home">
                 <Button 
                     size="large"
                     variant="text"

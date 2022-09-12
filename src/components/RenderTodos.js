@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react'
 import { reset } from '../redux/limit'
 import { useDispatch } from "react-redux"
 import SortButton from './SortButton'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { update } from '../redux/todos'
 
 function RenderTodos(props){
 
@@ -15,9 +17,6 @@ function RenderTodos(props){
 
     const dispatch = useDispatch()
 
-    // this rendering system is used for all subpages
-    // active holds all todos that should render, only todos with status === props.state will be diplaied
-    // all is exception, then all todos will render
     const [active, setActive] = useState(
         todos.filter((todo) => {
             if(props.state !== "all"){
@@ -38,6 +37,29 @@ function RenderTodos(props){
                 }
             })
         )
+    }
+
+    function dragEnd(result){
+        console.log("result", result)
+        let activeCopy = [...active]
+        let [itemToMove] = activeCopy.splice(result.source.index, 1)
+        activeCopy.splice(result.destination.index, 0, itemToMove)
+
+        if(props.state !== "all"){
+            let counter = 0
+            let todosCopy = [...todos]
+            todosCopy.map((todo, index) => {
+                if(todo.status === activeCopy[counter].status){
+                    todosCopy[index] = activeCopy[counter]
+                    if(counter !== (active.length - 1)){
+                        counter++
+                    }
+                }
+            })
+            dispatch(update(todosCopy))
+        }else{
+            dispatch(update(activeCopy))
+        }
     }
 
     useEffect(() => {
@@ -71,11 +93,32 @@ function RenderTodos(props){
             </Typography>
             <Stack justifyContent="center">
                 <SortButton />
-                {
-                    active.map((todo) => {
-                        return <Todo key={todo.id} data={todo}/>
-                    })
-                }
+                <DragDropContext onDragEnd={dragEnd}>
+                    <Droppable droppableId='todos'>
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef}>
+                                {active.map((todo, index) => {
+                                    return(
+                                        <Draggable key={todo.id} draggableId={todo.id} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    {...provided.draggableProps } 
+                                                    {...provided.dragHandleProps}
+                                                    ref={provided.innerRef}
+                                                >
+                                                    <Todo 
+                                                        data={todo}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    )
+                                })}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </Stack>
         </Container>
     )

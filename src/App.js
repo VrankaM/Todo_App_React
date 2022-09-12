@@ -25,7 +25,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Login />} />
+        {/* <Route path='/' element={<Login />} /> */}
         <Route element={<ProtectedRoutes />}>
           <Route path='/' element={<SharedLayout />}>
             <Route path='home' element={<Home />} />

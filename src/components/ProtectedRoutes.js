@@ -1,4 +1,5 @@
-import { Navigate, Outlet } from "react-router"
+import { Outlet, Navigate } from "react-router"
+import Login from "../pages/Login"
 
 function checkAuth(){
     console.log(localStorage.getItem("authorized"))
@@ -11,10 +12,12 @@ function checkAuth(){
 
 function ProtectedRoutes(){
     let auth = checkAuth()
+
     if(auth){
         return <Outlet />
     } else{
         return <Navigate to="/" />
+        // return <Login />
     }
 }
 
