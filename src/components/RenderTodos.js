@@ -55,6 +55,7 @@ function RenderTodos(props){
                         counter++
                     }
                 }
+                return true
             })
             dispatch(update(todosCopy))
         }else{

@@ -33,3 +33,14 @@ Fetching 10 todos initially, then additional 5 when scrolling to the end of list
 Sort todos from newest to oldest
     adding url parameters from mockapi docs for unknown reason didnt work
     // sortBy=createdAt&order=desc / sortBy=createdAt&order=asc
+    sorting is done by calling .sort() on array of already downloaded todos, which means doesnt sort all todos if they aren't loaded yet
+    saving position of todos is not yet implemented
+
+Authentication
+    all routes are protected by React Router's protected routes
+
+Drag and drop
+    all todo items are draggable and droppable
+    made by - react beautiful dnd
+    saving position of todos is not yet implemented
+    

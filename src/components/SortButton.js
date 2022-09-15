@@ -18,7 +18,7 @@ function SortButton(){
     
     return(
         <Button onClick={sort}> 
-            Sort by newest 
+            Sort by most recent 
         </Button>
     )
 }

@@ -3,12 +3,15 @@ import { update } from '../redux/todos'
 import { toggle } from '../redux/limit'
 
 
+
 export function updateTodos(limit, dispatch){
     
     axios.get("https://62e7f7e793938a545bdd7fff.mockapi.io/todos", {
       params:{
         page: 1,
-        limit: limit
+        limit: limit,
+        sortBy: "createdAt",
+        order: "desc"
         // sortBy=createdAt&order=desc
       }
     }).then((res) => {

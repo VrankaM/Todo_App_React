@@ -1,8 +1,6 @@
 import { Outlet, Navigate } from "react-router"
-import Login from "../pages/Login"
 
 function checkAuth(){
-    console.log(localStorage.getItem("authorized"))
     if(JSON.parse(localStorage.getItem("authorized")) === true){
         return true
     } else{
@@ -17,7 +15,6 @@ function ProtectedRoutes(){
         return <Outlet />
     } else{
         return <Navigate to="/" />
-        // return <Login />
     }
 }
 

@@ -5,7 +5,6 @@ function Login(){
     const password = "heslo123"
     let navigate = useNavigate()
 
-
     function successSubmit(values){
         if(values.password === password){
             localStorage.setItem("authorized", true)
